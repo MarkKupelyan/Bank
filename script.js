@@ -63,7 +63,7 @@ const inputClosePin = document.querySelector('.form__input--pin');
 
 /////////////////////////////////////////////////
 
-// je lepsi vzdy do argumentu funkce volat primo hodnoty ktere chceme jak to delam u movements
+
 const displayMovements = function (acc, sort = false) {
   containerMovements.innerHTML = ''; //kdyz je innerHTML "" nebo null tak se odstrani veskery html
 
@@ -82,7 +82,7 @@ const displayMovements = function (acc, sort = false) {
       <div class="movements__value">${mov}€</div>
     </div>`;
     //insertAdjacentHTML pro tvorbu elementu v JS
-    containerMovements.insertAdjacentHTML('afterbegin', html); //afterbegin zverejini tak aby se to zobrazovalo az po parent elementu takze se zobrazi parent a pak child a ne posledni predposledni element
+    containerMovements.insertAdjacentHTML('afterbegin', html); //afterbegin aby se to zobrazovalo az po parent elementu 
   });
 };
 
@@ -171,7 +171,7 @@ btnLogin.addEventListener('click', function (e) {
   //prevents to reload the page after clicking to login
   e.preventDefault();
 
-  //Tady pri loginu pomoci find hledame jestli value se shoduje s account username
+  //pomoci find hledame jestli value se shoduje s account username
   //currentAccount pote co se shoduje tak se do nej ulozi cely objekt tohoto accountu
   currentAccount = accounts.find(
     acc => acc.username === inputLoginUsername.value
@@ -182,7 +182,7 @@ btnLogin.addEventListener('click', function (e) {
     labelWelcome.textContent = `Welcome back ${
       currentAccount.owner.split(' ')[0] //Jonas
     }`;
-    containerApp.style.opacity = 100; //Zmeni opacity z 0 na 100 pro body(po prihlaseni)
+    containerApp.style.opacity = 100; 
 
     //Internalization of date
     const today = new Date();
@@ -193,16 +193,15 @@ btnLogin.addEventListener('click', function (e) {
       month: 'long',
       year: 'numeric',
     };
-    //const local = navigator.language; //primo vezme hodnoty z browser location kde jsi // 27. října 2024 v 18:06
+    
 
-    labelDate.textContent = Intl.DateTimeFormat('en-US', options).format(today); //formatuje cas podle jazyku a zeme
-    //Clear input login field (smazeme prihlasovaci udaje z login formu po loginu)
+    labelDate.textContent = Intl.DateTimeFormat('en-US', options).format(today); 
     inputLoginPin.value = '';
     inputLoginUsername.value = '';
-    inputLoginPin.blur(); // blue() ztrati focus- chceme to protoze potom co zada prihlaš. udaje tak je cursor na pin a takhle to tam nebude pomoci blur
+    inputLoginPin.blur(); 
 
     //timer ( if timer is true (neboli kdyz bezi uz z jineho uctu tak) smazat timer a nacist znovu)
-    if (timer) clearInterval(timer); //pro prepnuti na jiny ucet -> jestli je timer z minuleho tak chci smazat timer
+    if (timer) clearInterval(timer); //pro prepnuti na jiny ucet -> smazat timer
     timer = startLogoutTimer(); //nacteme timer znovu
     //Update UI
     updateUI(currentAccount);
@@ -211,7 +210,7 @@ btnLogin.addEventListener('click', function (e) {
 
 //Transfer Money
 btnTransfer.addEventListener('click', function (e) {
-  e.preventDefault(); //jedna se o form takze mame tohle aby to zabranilo relodu
+  e.preventDefault(); 
   const amount = Number(inputTransferAmount.value);
   const receiverAcc = accounts.find(
     acc => acc.username === inputTransferTo.value
@@ -241,16 +240,6 @@ btnTransfer.addEventListener('click', function (e) {
   }
 });
 
-//DATE - day-month-year
-/*
-const now = new Date();
-const day = `${now.getDate()}`.padStart(2, 0);
-const month = `${now.getMonth() + 1}`.padStart(2, 0);
-const year = now.getFullYear();
-const hour = now.getHours();
-const minutes = now.getMinutes();
-labelDate.textContent = `${day}/${month}/${year}, ${hour}:${minutes} `;
-*/
 //Loan - request must be 10% of the deposite
 btnLoan.addEventListener('click', function (e) {
   e.preventDefault();
